@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'adminEmail' => 'admin@example.com',
+    'senderEmail' => 'noreply@example.com',
+    'senderName' => 'Example.com mailer',
+    'pageSize' => [
+        'manager' => 10,
+        'user'   => 10,
+        'product' => 10,
+        'frontproduct' => 9,
+        'order' => 10,
+    ],
+    'defaultValue' => [
+        'avatar' => 'assets/admin/img/contact-img.png',
+    ],
+    'express' => [
+        1 => '中通快递',
+        2 => '顺丰快递',
+        3 => '包邮'
+    ],
+    'expressPrice' => [
+        1 => 15,
+        2 => 20,
+        3 => 0
+    ],
+];
