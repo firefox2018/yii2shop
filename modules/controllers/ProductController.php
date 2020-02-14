@@ -44,6 +44,8 @@ class ProductController extends Controller{
             if($model->load($post) && $model->save()){
                 Yii::$app->session->setFlash("info","添加商品成功!");
                 $this->redirect(["product/list"]);
+            }else{
+                var_dump($model->getErrors());
             }
         }
         return $this->render('add',[
