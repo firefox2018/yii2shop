@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Category;
 
 /**
  * This is the model class for table "shop_product".
@@ -36,12 +37,28 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['cateid', 'num', 'createtime'], 'integer'],
-            [['cateid','title','price','description','num'],'required'],
-            [['description', 'pics', 'issale', 'ishot'], 'string'],
-            [['price', 'saleprice'], 'number'],
-            [['title', 'cover'], 'string', 'max' => 200],
+            ['title','required','message'=>'商品名不能为空'],
+            ['description','required','message'=>'商品描述信息不能为空'],
+            ['cateid','required','message'=>'分类不能为空'],
+            ['cateid','checkCategory'],
+            ['price','required','message'=>'商品单价不能为空'],
+            [['price','saleprice'],'number','min'=>0.01,'message'=>'价格必须是数字'],
+            ['num','integer','min'=>0,'message'=>'库存数量必须是0或正整数'],
+            [['issale','ishot','ison','isrecommend','pics'],'safe'],
+            ['cover','required','message'=>'封面图不能为空'],
         ];
+    }
+
+    /**
+     * 新增或者修改商品时,不允许将商品指定到顶级分类下
+     */
+    public function checkCategory(){
+        if(!$this->hasErrors()){
+            $product = Category::find()->where('cateid=:id',[':id'=>$this->cateid])->asArray()->one();
+            if($product['parentid'] == '0'){
+                $this->addError('cateid','商品分类不能为顶级分类');
+            }
+        }
     }
 
     /**
@@ -58,12 +75,35 @@ class Product extends \yii\db\ActiveRecord
             'price' => '单价',
             'cover' => '封面图',
             'pics' => '缩略图',
-            'issale' => '是否在售',
+            'issale' => '是否促销',
             'saleprice' => '售出价格',
             'ishot' => '是否热卖',
             'ison' => '上/下架',
             'isrecommend' => '是否推荐',
             'createtime' => '创建时间',
         ];
+    }
+
+    /**
+     * 添加商品信息到数据库
+     * @param $post
+     * @return bool
+     */
+    public function add($post){
+        if($this->load($post) && $this->save()){
+            return true;
+        }
+        return false;
+    }
+
+    public function beforeSave($insert)
+    {
+        if(parent::beforeSave($insert)){
+            if($insert){
+                $this->createtime = time();
+            }
+            return true;
+        }
+        return false;
     }
 }

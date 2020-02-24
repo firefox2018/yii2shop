@@ -40,7 +40,7 @@
                                     echo $form->field($model, 'title')->textInput(['class' => 'span9']);
                                     echo $form->field($model, 'description')->textarea(['id' => "wysi", 'class' => "span9 wysihtml5", 'style' => 'margin-left:120px']);
                                     echo $form->field($model, 'price')->textInput(['class' => 'span9']);
-                                    echo $form->field($model, 'ishot')->radioList([0 => '不热卖', 1 => '热卖'], ['class' => 'span8']);
+                                    echo $form->field($model, 'ishot')->radioList([ '不热卖', '热卖'], ['class' => 'span8']);
                                     echo $form->field($model, 'issale')->radioList(['不促销', '促销'], ['class' => 'span8']);
                                     echo $form->field($model, 'saleprice')->textInput(['class' => 'span9']);
                                     echo $form->field($model, 'num')->textInput(['class' => 'span9']);
