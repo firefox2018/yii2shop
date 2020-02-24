@@ -103,7 +103,7 @@ class Category extends \yii\db\ActiveRecord
      * 获取分类信息,转换为dropdownlist使用的数组格式 ['cateid' => 'title' ]
      * @return array
      */
-    public function getList(){
+    public static function getList(){
         $cates = self::getCates();
         $list = [];
         foreach($cates as $cate){
@@ -118,7 +118,6 @@ class Category extends \yii\db\ActiveRecord
         if(parent::beforeSave($insert)){
             if($insert){
                 $this->createtime = time();
-                return true;
             }
             return true;
         }
