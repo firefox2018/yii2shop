@@ -9,12 +9,23 @@
 namespace app\controllers;
 
 use Yii;
-use yii\web\Controller;
+use app\controllers\CommonController;
+use app\models\Category;
+use app\models\Product;
 
-class IndexController extends Controller{
+class IndexController extends CommonController{
     public $layout = 'layout1';
 
     public function actionIndex(){
-        return $this->render('index');
+        $topCategory = Category::getTopCategory();
+        $childCategory = Category::getChildCategory();
+        $recommendProduct = Product::getRecommendProduct();
+        $latestProduct = Product::getLatestProduct();
+        return $this->render('index',[
+            'topCategory' => $topCategory,
+            'childCategory' => $childCategory,
+            'recommendProduct' => $recommendProduct,
+            'latestProduct' => $latestProduct
+        ]);
     }
 }

@@ -10,7 +10,7 @@ use yii\bootstrap\ActiveForm;
                 <div id="owl-single-product">
                     <div class="single-product-gallery-item" id="slide1">
                         <a data-rel="prettyphoto" href="">
-                            <img class="img-responsive" alt="" src=""  />
+                            <img class="img-responsive" alt="" src="<?php echo $product['cover'].'-coverbig'; ?>"  />
                         </a>
                     </div><!-- /.single-product-gallery-item -->
 
@@ -20,7 +20,11 @@ use yii\bootstrap\ActiveForm;
                 <div class="single-product-gallery-thumbs gallery-thumbs">
 
                     <div id="owl-single-product-thumbnails">
-
+                        <?php
+                            foreach((array)json_decode($product['pics'],true) as $v){
+                                echo "<img src='".$v."' alt=''>";
+                            }
+                        ?>
                     </div><!-- /#owl-single-product-thumbnails -->
 
                     <div class="nav-holder left hidden-xs">
@@ -40,13 +44,13 @@ use yii\bootstrap\ActiveForm;
                 <!--<div class="star-holder inline"><div class="star" data-score="4"></div></div>-->
                 <div style="margin-top:30px"></div>
                 <div class="title"><a href="#"></a></div>
-                <div class="availability" style="font-size:15px;margin:0;line-height:30px"><label>库存:</label><span class="available">  </span></div>
+                <div class="availability" style="font-size:15px;margin:0;line-height:30px"><label>库存:</label><span class="available"> <?php echo $product['num']; ?> </span></div>
                 <!--<div class="excerpt">
         <p></p>
         </div>-->
 
                 <div class="prices">
-
+                    <?php echo $product['price']; ?>
                 </div>
 
                 <div class="qnt-holder">
@@ -80,7 +84,7 @@ use yii\bootstrap\ActiveForm;
 
             <div class="tab-content">
                 <div class="tab-pane active" id="description">
-                    <p></p>
+                    <p><?php echo $product['description']; ?></p>
                 </div><!-- /.tab-pane #description -->
 
             </div><!-- /.tab-content -->

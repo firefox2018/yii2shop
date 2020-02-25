@@ -93,7 +93,47 @@
 
                             <div class="product-grid-holder">
                                 <div class="row no-margin">
+                                    <?php foreach($products as $pro): ?>
+                                        <div class="col-xs-12 col-sm-4 no-margin product-item-holder hover">
+                                            <div class="product-item">
+                                                <?php if ($pro['ishot']): ?>
+                                                    <div class="ribbon red"><span>HOT</span></div>
+                                                <?php endif; ?>
+                                                <?php if ($pro['issale']): ?>
+                                                    <div class="ribbon green"><span>sale</span></div>
+                                                <?php endif; ?>
+                                                <?php if ($pro['isrecommend']): ?>
+                                                    <div class="ribbon blue"><span>recommond</span></div>
+                                                <?php endif; ?>
 
+                                                <div class="image">
+                                                    <img alt="" src="<?php echo $pro['cover'] ?>-covermiddle"  />
+                                                </div>
+                                                <div class="body">
+                                                    <?php if($pro['issale']): ?>
+                                                        <div class="label-discount green"><?php echo round($pro['saleprice']/$pro['price']*100, 0) ?>% sale</div>
+                                                    <?php endif; ?>
+                                                    <div class="title">
+                                                        <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro['productid']]) ?>"><?php echo $pro['title'] ?></a>
+                                                    </div>
+                                                </div>
+                                                <div class="prices">
+                                                    <?php if ($pro['issale']): ?>
+                                                        <div class="price-prev">￥<?php echo $pro['price'] ?></div>
+                                                        <div class="price-current pull-right">￥<?php echo $pro['saleprice'] ?></div>
+                                                    <?php else: ?>
+                                                        <div class="price-current pull-right">￥<?php echo $pro['price'] ?></div>
+                                                    <?php endif; ?>
+                                                </div>
+                                                <div class="hover-area">
+                                                    <div class="add-cart-button">
+                                                        <a href="<?php echo yii\helpers\Url::to(['cart/add', 'productid' => $pro['productid']]) ?>" class="le-button">加入购物车</a>
+                                                    </div>
+
+                                                </div>
+                                            </div><!-- /.product-item -->
+                                        </div><!-- /.product-item-holder -->
+                                    <?php endforeach; ?>
                                 </div><!-- /.row -->
                             </div><!-- /.product-grid-holder -->
 

@@ -131,8 +131,9 @@
                                 <div class="total-price-basket">
                                     <span class="lbl">您的购物车:</span>
                                     <span class="total-price">
-                    <span class="sign">￥</span><span class="value"></span>
-                    </span>
+                                        <span class="sign">￥</span>
+                                        <span class="value">0</span>
+                                    </span>
                                 </div>
                             </a>
 

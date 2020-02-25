@@ -106,4 +106,20 @@ class Product extends \yii\db\ActiveRecord
         }
         return false;
     }
+
+    /**
+     * 获取三条推荐商品信息
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function getRecommendProduct(){
+        return self::find()->where('isrecommend = "1"')->orderBy('createtime desc')->limit(3)->all();
+    }
+
+    /**
+     * 获取最新上架的三件商品信息
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function getLatestProduct(){
+        return self::find()->where('issale= "1" ')->orderBy('createtime desc')->limit(3)->all();
+    }
 }

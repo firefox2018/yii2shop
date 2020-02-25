@@ -124,6 +124,20 @@ class Category extends \yii\db\ActiveRecord
         return false;
     }
 
+    /**
+     * 获取顶级分类
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function getTopCategory(){
+        return  self::find()->where('parentid=:id',[':id'=>'0'])->asArray()->all();
+    }
 
+    /**
+     * 获取非顶级分类
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function getChildCategory(){
+        return self::find()->where('parentid!=:id',[':id'=>'0'])->asArray()->all();
+    }
 
 }

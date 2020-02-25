@@ -6,28 +6,33 @@
                 <div class="head"><i class="fa fa-list"></i> 所有分类 </div>
                 <nav class="yamm megamenu-horizontal" role="navigation">
                     <ul class="nav">
+                        <?php foreach($topCategory as $top): ?>
+                        <li class="dropdown menu-item">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <?php echo $top['title']; ?></a>
+                            <ul class="dropdown-menu mega-menu">
 
-                            <li class="dropdown menu-item">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"></a>
-                                <ul class="dropdown-menu mega-menu">
-                                    <li class="yamm-content">
-                                        <!-- ================================== MEGAMENU VERTICAL ================================== -->
-                                        <div class="row">
-                                            <div class="col-xs-12 col-lg-4">
-                                                <ul>
-
-                                                </ul>
-                                            </div>
-                                            <div class="dropdown-banner-holder">
-                                                <a href="#"><img alt="" src="/assets/images/banners/banner-side.png" /></a>
-                                            </div>
+                                <li class="yamm-content">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-lg-4">
+                                            <ul>
+                                            <?php
+                                                foreach($childCategory as $child){
+                                                    if($child['parentid'] === $top['cateid']){
+                                                        echo "<li> <a href='".yii\helpers\Url::to(['product/index','cateid'=>$child['cateid']])."'>".$child['title']."</a></li>";
+                                                    }
+                                                }
+                                            ?>
+                                            </ul>
                                         </div>
-                                        <!-- ================================== MEGAMENU VERTICAL ================================== -->
-                                    </li>
-                                </ul>
-                            </li><!-- /.menu-item -->
+                                        <div class="dropdown-banner-holder">
+                                            <a href="#"><img alt="" src="/assets/images/banners/banner-side.png" /></a>
+                                        </div>
+                                    </div>
 
-                        <!--<li><a href="http://themeforest.net/item/media-center-electronic-ecommerce-html-template/8178892?ref=shaikrilwan">Buy this Theme</a></li>-->
+                                </li>
+                            </ul>
+                        </li><!-- /.menu-item -->
+                        <?php endforeach; ?>
                     </ul><!-- /.nav -->
                 </nav><!-- /.megamenu-horizontal -->
             </div><!-- /.side-menu -->
@@ -60,26 +65,6 @@
                             </div><!-- /.caption -->
                         </div><!-- /.container-fluid -->
                     </div><!-- /.item -->
-
-                    <!--<div class="item" style="background-image: url(/assets/images/sliders/slider02.jpg);">
-                        <div class="container-fluid">
-                            <div class="caption vertical-center text-left">
-                                <div class="big-text fadeInDown-1">
-                                    想获得<span class="big"><span class="sign">￥</span>200</span>的优惠？
-                                </div>
-
-                                <div class="excerpt fadeInDown-2">
-                                    速速前来 <br>快速抢购<br>
-                                </div>
-                                <div class="small fadeInDown-2">
-                                    优惠等你拿
-                                </div>
-                                <div class="button-holder fadeInDown-3">
-                                    <a href="#" class="big le-button ">去购买</a>
-                                </div>
-                            </div>--><!-- /.caption -->
-                    <!--</div>--><!-- /.container-fluid -->
-                    <!--</div>--><!-- /.item -->
 
                 </div><!-- /.owl-carousel -->
             </div>
@@ -128,7 +113,37 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="featured">
                     <div class="product-grid-holder">
+                        <?php foreach ($recommendProduct as $pro): ?>
+                            <div class="col-sm-4 col-md-3  no-margin product-item-holder hover">
+                                <div class="product-item">
+                                    <?php if ($pro->ishot): ?>
+                                        <div class="ribbon red"><span>HOT</span></div>
+                                    <?php endif; ?>
+                                    <?php if ($pro->issale): ?>
+                                        <div class="ribbon green"><span>sale</span></div>
+                                    <?php endif; ?>
 
+                                    <div class="image">
+                                        <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>-covermiddle" data-echo="<?php echo $pro->cover ?>-covermiddle" />
+                                    </div>
+                                    <div class="body">
+                                        <div class="title">
+                                            <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?>"><?php echo $pro->title ?></a>
+                                        </div>
+                                    </div>
+                                    <div class="prices">
+                                        <div class="price-prev">￥<?php echo $pro->price ?></div>
+                                        <div class="price-current pull-right">￥<?php echo $pro->saleprice ?></div>
+                                    </div>
+
+                                    <div class="hover-area">
+                                        <div class="add-cart-button">
+                                            <a href="<?php echo yii\helpers\Url::to(['cart/add', 'productid' => $pro->productid]) ?>" class="le-button">加入购物车</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                     <div class="loadmore-holder text-center">
                         <a class="btn-loadmore" href="#">
@@ -139,7 +154,37 @@
                 </div>
                 <div class="tab-pane" id="new-arrivals">
                     <div class="product-grid-holder">
+                        <?php foreach ($latestProduct as $pro): ?>
+                            <div class="col-sm-4 col-md-3  no-margin product-item-holder hover">
+                                <div class="product-item">
+                                    <?php if ($pro->ishot): ?>
+                                        <div class="ribbon red"><span>HOT</span></div>
+                                    <?php endif; ?>
+                                    <?php if ($pro->issale): ?>
+                                        <div class="ribbon green"><span>sale</span></div>
+                                    <?php endif; ?>
 
+                                    <div class="image">
+                                        <img alt="<?php echo $pro->title ?>" src="<?php echo $pro->cover ?>-covermiddle" data-echo="<?php echo $pro->cover ?>-covermiddle" />
+                                    </div>
+                                    <div class="body">
+                                        <div class="title">
+                                            <a href="<?php echo yii\helpers\Url::to(['product/detail', 'productid' => $pro->productid]) ?>"><?php echo $pro->title ?></a>
+                                        </div>
+                                    </div>
+                                    <div class="prices">
+                                        <div class="price-prev">￥<?php echo $pro->price ?></div>
+                                        <div class="price-current pull-right">￥<?php echo $pro->saleprice ?></div>
+                                    </div>
+
+                                    <div class="hover-area">
+                                        <div class="add-cart-button">
+                                            <a href="<?php echo yii\helpers\Url::to(['cart/add', 'productid' => $pro->productid]) ?>" class="le-button">加入购物车</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                     <div class="loadmore-holder text-center">
                         <a class="btn-loadmore" href="#">
